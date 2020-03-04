@@ -61,6 +61,10 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        <#code#>
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -70,5 +74,22 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    
+    @IBAction func onLogoutButton(_ sender: Any) {
+        PFUser.logOutInBackground { (error) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                print("Successful logout!")
+                // Load and show the login view controller
+                let main = UIStoryboard(name: "Main", bundle: nil)
+                let loginViewConntroller = main.instantiateViewController(identifier: "LoginViewController")
+                let sceneDelegate = self.view.window?.windowScene?.delegate as! SceneDelegate
+                sceneDelegate.window?.rootViewController = loginViewConntroller
+            }
+        }
+        
+    }
+    
 }
